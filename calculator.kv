@@ -1,0 +1,534 @@
+<TabbedPanelHeader>:
+    canvas.before:
+        Color:
+            rgba: self.background_color if self.background_color else (0.1, 0.1, 0.1, 1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    Label:
+        text: self.parent.text if self.parent else ''
+        font_size: '14sp' if root.width > 600 else ('10sp' if root.width > 400 else '8sp')
+        color: 1, 1, 1, 1
+        bold: True
+        halign: 'center'
+        valign: 'middle'
+        size_hint: 1, 1
+        text_size: self.size[0] - 20, None  # Allow wrapping by not constraining height
+        shorten: False  # Disable shortening to allow wrapping
+        max_lines: 2  # Allow text to wrap over two lines
+        padding_x: 10
+
+<LandConverter>:
+    orientation: 'vertical'
+    padding: [15 if root.width > 600 else (10 if root.width > 400 else 5), 15 if root.width > 600 else (10 if root.width > 400 else 5)]
+    spacing: 15 if root.width > 600 else (10 if root.width > 400 else 5)
+
+    TabbedPanel:
+        id: tab_panel
+        do_default_tab: False
+        tab_height: '64dp' if root.width > 600 else ('56dp' if root.width > 400 else '48dp')  # Increased height for wrapped text
+        tab_width: max(220, min(260, (self.width - 20) / len(self.tab_list))) if self.tab_list else 260  # Increased min width to fit text
+        tab_pos: 'top_mid'
+        background_color: 0.1, 0.1, 0.1, 1
+
+        # First Tab: Ropani-Aana-Paisa-Daam
+        TabbedPanelItem:
+            text: 'Ropani-Aana-Paisa-Daam'
+            background_color: 0.1, 0.2, 0.5, 1
+
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+
+                GridLayout:
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: [15 if root.width > 600 else (10 if root.width > 400 else 5), 15 if root.width > 600 else (10 if root.width > 400 else 5)]
+                    spacing: 10 if root.width > 600 else (6 if root.width > 400 else 4)
+
+                    Label:
+                        text: "Ropani:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: ropani
+                        input_filter: 'int'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Label:
+                        text: "Aana:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: aana
+                        input_filter: 'int'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Label:
+                        text: "Paisa:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: paisa
+                        input_filter: 'int'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Label:
+                        text: "Daam:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: daam
+                        input_filter: 'int'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Button:
+                        text: "Convert to Sq. Meter"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.2, 0.6, 0.8, 1
+                        on_press: root.convert_rapd_to_sqm()
+
+                    Label:
+                        id: result_rapd_to_sqm
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
+
+                    Button:
+                        text: "Convert to Sq. Ft"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.2, 0.6, 0.8, 1
+                        on_press: root.convert_rapd_to_sqft()
+
+                    Label:
+                        id: result_rapd_to_sqft
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
+
+                    Label:
+                        text: "Enter square meters:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: sqm_rapd
+                        hint_text: "Enter square meters"
+                        input_filter: 'float'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Button:
+                        text: "Convert Sq. Meter to Ropani/Aana/Paisa/Daam"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.2, 0.6, 0.8, 1
+                        on_press: root.convert_sqm_to_rapd()
+
+                    Label:
+                        id: result_sqm_to_rapd
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
+
+                    Label:
+                        text: "Enter square feet:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: sqft_rapd
+                        hint_text: "Enter square feet"
+                        input_filter: 'float'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Button:
+                        text: "Convert Sq.Ft to Ropani/Aana/Paisa/Daam"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.2, 0.6, 0.8, 1
+                        on_press: root.convert_sqft_to_rapd()
+
+                    Label:
+                        id: result_sqft_to_rapd
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
+
+        # Second Tab: Bigha-Kattha-Dhur
+        TabbedPanelItem:
+            text: 'Bigha-Kattha-Dhur'
+            background_color: 0.1, 0.4, 0.1, 1
+
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+
+                GridLayout:
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: [15 if root.width > 600 else (10 if root.width > 400 else 5), 15 if root.width > 600 else (10 if root.width > 400 else 5)]
+                    spacing: 10 if root.width > 600 else (6 if root.width > 400 else 4)
+
+                    Label:
+                        text: "Bigha:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: bigha
+                        input_filter: 'int'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Label:
+                        text: "Kattha:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: kattha
+                        input_filter: 'int'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Label:
+                        text: "Dhur:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: dhur
+                        input_filter: 'int'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Button:
+                        text: "Convert to Sq. Meter"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.2, 0.8, 0.2, 1
+                        on_press: root.convert_bkd_to_sqm()
+
+                    Label:
+                        id: result_bkd_to_sqm
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
+
+                    Button:
+                        text: "Convert to Sq. Ft"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.2, 0.8, 0.2, 1
+                        on_press: root.convert_bkd_to_sqft()
+
+                    Label:
+                        id: result_bkd_to_sqft
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
+
+                    Label:
+                        text: "Enter square meters:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: sqm_bkd
+                        hint_text: "Enter square meters"
+                        input_filter: 'float'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Button:
+                        text: "Convert Sq. Meter to Bigha/Kattha/Dhur"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.2, 0.8, 0.2, 1
+                        on_press: root.convert_sqm_to_bkd()
+
+                    Label:
+                        id: result_sqm_to_bkd
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
+
+                    Label:
+                        text: "Enter square feet:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: sqft_bkd
+                        hint_text: "Enter square feet"
+                        input_filter: 'float'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Button:
+                        text: "Convert Sq.Ft to Bigha/Kattha/Dhur"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.2, 0.8, 0.2, 1
+                        on_press: root.convert_sqft_to_bkd()
+
+                    Label:
+                        id: result_sqft_to_bkd
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
+
+        # Third Tab: Sq. Meter/Feet
+        TabbedPanelItem:
+            text: 'Sq. Meter/Feet'
+            background_color: 0.4, 0.2, 0.1, 1
+
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+
+                GridLayout:
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: [15 if root.width > 600 else (10 if root.width > 400 else 5), 15 if root.width > 600 else (10 if root.width > 400 else 5)]
+                    spacing: 10 if root.width > 600 else (6 if root.width > 400 else 4)
+
+                    Label:
+                        text: "Square Meter:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: sqm
+                        input_filter: 'float'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Button:
+                        text: "Convert to Square Feet"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.6, 0.3, 0.1, 1
+                        on_press: root.convert_sqm_to_sqft()
+
+                    Label:
+                        id: result_sqm_to_sqft
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
+
+                    Label:
+                        text: "Square Feet:"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: sqft_sqm
+                        input_filter: 'float'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Button:
+                        text: "Convert to Square Meter"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.6, 0.3, 0.1, 1
+                        on_press: root.convert_sqft_to_sqm()
+
+                    Label:
+                        id: result_sqft_to_sqm
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
+
+        # Fourth Tab: Haat-based
+        TabbedPanelItem:
+            text: 'Haat-based'
+            background_color: 0.5, 0, 0.3, 1
+
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+
+                GridLayout:
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: [15 if root.width > 600 else (10 if root.width > 400 else 5), 15 if root.width > 600 else (10 if root.width > 400 else 5)]
+                    spacing: 10 if root.width > 600 else (6 if root.width > 400 else 4)
+
+                    Label:
+                        text: "Length (Haat):"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: haat_length
+                        input_filter: 'float'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Label:
+                        text: "Breadth (Haat):"
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        color: 0.9, 0.9, 0.9, 1
+                    TextInput:
+                        id: haat_breadth
+                        input_filter: 'float'
+                        multiline: False
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        background_color: 0.95, 0.95, 0.95, 1
+
+                    Button:
+                        text: "Convert Haat to Sq. Ft"
+                        size_hint: (1, None)
+                        height: '56dp' if root.width > 600 else ('44dp' if root.width > 400 else '36dp')
+                        font_size: '18sp' if root.width > 600 else ('14sp' if root.width > 400 else '12sp')
+                        background_color: 0.6, 0.2, 0.4, 1
+                        on_press: root.convert_haat_to_sqft()
+
+                    Label:
+                        id: result_haat_to_sqft
+                        text: ""
+                        size_hint_y: None
+                        height: '48dp' if root.width > 600 else ('36dp' if root.width > 400 else '28dp')
+                        font_size: '16sp' if root.width > 600 else ('12sp' if root.width > 400 else '10sp')
+                        color: 0.9, 0.9, 0.9, 1
+                        halign: 'left'
+                        valign: 'middle'
+                        text_size: self.size
